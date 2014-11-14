@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/modernizr/modernizr.js"></script>
+</head>
+<body>
+    <canvas height="500" width="500">
+
+    </canvas>
+    <script>
+        console.log(Modernizr);
+
+        var canvas = document.body.firstElementChild;
+        var context = canvas.getContext('2d');
+
+        context.beginPath();
+        context.moveTo(100, 100);
+        context.lineTo(200, 100);
+        context.lineTo(150, Math.sqrt(3) / 2 * 100 + 100);
+        context.lineTo(100, 100);
+        context.fillStyle = 'red';
+        context.fill();
+        context.closePath();
+
+        //todo: heart using a path
+
+    </script>
+
+</body>
+</html>

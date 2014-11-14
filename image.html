@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas height="600" width="600">
+
+    </canvas>
+    <img src="darth.png" alt="Cute Darth Vader ... " style="display: none;"/>
+    <span>Location ... </span>
+    <script>
+        window.addEventListener('load', function () {
+            var canvas = document.body.firstElementChild;
+            var context = canvas.getContext('2d');
+            var img = document.body.children[1];
+
+            console.log(canvas);
+            console.log(img);
+
+            context.drawImage(img, 0, 0, 430, 450);
+
+            canvas.addEventListener('mouseenter', function () {
+                // start listening to mouse move events once the
+                // user is inside the canvas
+                canvas.addEventListener('mousemove', moveHandler);
+                console.log('You are in the canvas ... ');
+            });
+
+            canvas.addEventListener('mouseout', function () {
+                // stop listening to mouse move events once the
+                // user is inside the canvas
+                canvas.removeEventListener('mousemove', moveHandler);
+                console.log('You out of the canvas ... ');
+            });
+
+
+            function moveHandler (event) {
+
+                console.log([event.clientX, event.clientY].join(', '));
+                console.log(event);
+
+                context.clearRect(0, 0, 600, 600);
+                context.drawImage(img, 0, 0, 430, 450);
+                context.strokeStyle = 'red';
+                context.strokeRect(event.clientX - 50, event.clientY - 50, 100, 100);
+                context.drawImage(img,
+                                2 * (event.clientX) - 50,
+                                2 * (event.clientY) - 50,
+                                100,
+                                100,
+                                event.clientX - 50,
+                                event.clientY - 50,
+                                100,
+                                100
+                );
+
+                // image - multiplier = 2,
+
+                // todo: zoom a portion of the canvas itself instead of zooming into the image.
+                // i.e. DO NOT use img as the first input fir the last context.drawImage statement.
+            }
+
+
+        });
+    </script>
+</body>
+</html>

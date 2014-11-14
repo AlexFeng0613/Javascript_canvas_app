@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            color: red;
+        }
+    </style>
+    <script>
+        // you can use a window load event instead
+        document.addEventListener('readystatechange', function () {
+            if ( document.readyState === 'complete' ) {
+                var img = document.body.firstElementChild;
+                var canvas = document.body.lastElementChild;
+                var context = canvas.getContext('2d');
+                context.drawImage(img, 0, 0);
+                var w = 400, h = 300;
+                var image_data = context.getImageData(0, 0, w, h);
+                var pixels = image_data.data;
+                console.log(pixels.length);
+                console.log(w * h * 4);
+
+                //loop over all the pixels and change them to grayscale
+                // brighten(pixels);
+                threshold(pixels);
+
+                context.putImageData(image_data, 0, 0);
+            }
+        });
+
+        function threshold(pixels) {
+            var cutoff = 75;
+            for (var i = 0, len = pixels.length; i < len; i+=4) {
+
+                var gr = 0.2126 * pixels[i] + 0.7152 * pixels[i + 1] + 0.0722 * pixels[i + 2];
+                if (gr > cutoff) {
+                    pixels[i] = pixels[i + 1] = pixels[i + 2] = 255;
+                } else {
+                    pixels[i] = pixels[i + 1] = pixels[i + 2] = 0;
+                }
+
+
+            }
+        }
+
+        function grayscale(pixels) {
+            for (var i = 0, len = pixels.length; i < len; i+=4) {
+
+                var gr = 0.2126 * pixels[i] + 0.7152 * pixels[i + 1] + 0.0722 * pixels[i + 2];
+                pixels[i] = pixels[i + 1] = pixels[i + 2] = gr;
+
+            }
+        }
+
+
+        function selectiveColor(pixels) {
+            var r = 250, b = 250, g = 0;
+            var c = 80;
+            for (var i = 0, len = pixels.length; i < len; i+=4) {
+
+                if (!((
+                        pixels[i] <= r + c && pixels[i] >= r - c
+                        ) && (
+                        pixels[i + 1] <= b + c && pixels[i + 1] >= b - c
+                        ) && (
+                        pixels[i + 2] <= g + c && pixels[i + 2] >= g - c
+                        ))) {
+
+                    pixels[i] = 255;
+                    pixels[i + 1] = 255;
+                    pixels[i + 2] = 255;
+
+                } else {
+                    pixels[i] = 255;
+                    pixels[i + 1] = 0;
+                    pixels[i + 2] = 0;
+                }
+
+            }
+        }
+
+        function changeBlue(pixels) {
+            for (var i = 0, len = pixels.length; i < len; i+=4) {
+                gr = 0.2126 * pixels[i] + 0.7152 * pixels[i+1] + 0.0722 * pixels[i+2];
+                pixels[i] = gr;
+                pixels[i+1] = gr + 20;
+                pixels[i+2] = gr + 30;
+            }
+        }
+
+        function brighten(pixels) {
+            for (var i = 0, len = pixels.length; i < len; i+=4) {
+                pixels[i] = pixels[i] + 40;
+                pixels[i + 1] = pixels[i + 1] + 40;
+                pixels[i + 2] = pixels[i + 2] + 40;
+            }
+        }
+    </script>
+</head>
+<body>
+    <img src="vangogh.jpg" alt="" style="display: none;"/>
+    <canvas height="300" width="400"></canvas>
+</body>
+</html>

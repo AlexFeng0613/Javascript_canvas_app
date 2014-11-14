@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            background-color: red;
+        }
+
+        canvas {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <canvas id="mycanvas" height="600" width="600">
+
+    </canvas>
+    <script>
+        var canvas = document.getElementById('mycanvas');
+        // context to draw onto the canvas
+        var context = canvas.getContext('2d');
+        context.fillStyle = 'red';
+        context.fillRect(0, 0, 400, 200);
+
+        context.fillStyle = 'darkred';
+        context.font = '1em Helvetica Neue';
+        context.fillText('Canvas', 100, 100);
+
+        context.fillStyle = 'green';
+        context.strokeRect(100,400, 500, 100);
+        // context.textBaseline  ='top';
+        context.fillText('default', 100, 400);
+        context.textBaseline  ='middle';
+        context.fillText('middle', 300, 400);
+        context.textBaseline  ='bottom';
+        context.fillText('bottom', 500, 400);
+
+        context.clearRect(100,100,100,100);
+
+        context.beginPath();
+
+        context.moveTo(400, 400);
+        context.lineTo(400, 500);
+        context.lineTo(500, 500);
+        context.lineTo(500, 400);
+        context.lineTo(397.5, 400);
+
+        context.lineWidth = 5;
+        context.strokeStyle = 'blue';
+
+
+        context.stroke();
+        context.fillStyle = 'red';
+        context.fill();
+        context.closePath();
+
+
+
+
+
+    </script>
+
+    <script>
+
+        context.quadraticCurveTo(230, 200, 250, 120);
+        context.bezierCurveTo(290, -40, 300, 200, 400, 150);
+    </script>
+</body>
+</html>
