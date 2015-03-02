@@ -22,14 +22,14 @@
         var canvas = document.getElementById('mycanvas');
         // context to draw onto the canvas
         var context = canvas.getContext('2d');
-        context.fillStyle = 'red';
-        context.fillRect(0, 0, 400, 200);
+        /*context.fillStyle = 'red';
+        context.fillRect(0, 0, 400, 200);*/
 
         context.fillStyle = 'darkred';
         context.font = '1em Helvetica Neue';
         context.fillText('Canvas', 100, 100);
 
-        context.fillStyle = 'green';
+        /*context.fillStyle = 'green';
         context.strokeRect(100,400, 500, 100);
         // context.textBaseline  ='top';
         context.fillText('default', 100, 400);
@@ -55,18 +55,15 @@
         context.stroke();
         context.fillStyle = 'red';
         context.fill();
-        context.closePath();
-
-
-
-
+        context.closePath();*/
 
     </script>
-
     <script>
 
         context.quadraticCurveTo(230, 200, 250, 120);
         context.bezierCurveTo(290, -40, 300, 200, 400, 150);
+        context.fill();
+
     </script>
 </body>
 </html>
