@@ -23,12 +23,29 @@
                 console.log(w * h * 4);
 
                 //loop over all the pixels and change them to grayscale
-                // brighten(pixels);
-                threshold(pixels);
-
+                //brighten(pixels);
+                //threshold(pixels);
+                fade(pixels,90);
                 context.putImageData(image_data, 0, 0);
             }
         });
+
+
+        function fade(pixels,radius){
+            for(var i = 0, len = pixels.length / 4;i < len; i+=1){
+                var x = i % 400;
+                var y = Math.floor(i / 400);
+                var distance = Math.sqrt(Math.pow((x - 200),2) + Math.pow((y - 200),2));
+                if(distance > radius){
+                    var j = i * 4;
+                    var fades =  distance / radius;
+
+                    pixels[j] = Math.floor(pixels[j] *(fades));
+                    pixels[j + 1] = Math.floor(pixels[j + 1] *(fades));
+                    pixels[j + 2] = Math.floor(pixels[j + 2] * (fades));
+                }
+            }
+        }
 
         function threshold(pixels) {
             var cutoff = 75;
